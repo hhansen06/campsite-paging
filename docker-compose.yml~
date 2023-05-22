@@ -1,0 +1,26 @@
+version: "3.4"
+services:
+  asterisk:
+     image: hhansen06/campsite-asterisk
+     build: 
+       context: asterisk
+       dockerfile: Dockerfile
+
+#  webserver:
+#    image: ghcr.io/paperless-ngx/paperless-ngx:latest
+#    restart: always
+#    depends_on:
+#      - db
+#      - broker
+#    ports:
+#      - 80:8000
+#    healthcheck:
+#      test: ["CMD", "curl", "-fs", "-S", "--max-time", "2", "http://localhost:8000"]
+#      interval: 30s
+#      timeout: 10s
+#      retries: 5
+#    volumes:
+#      - ./data:/usr/src/paperless/data
+##      - ./media:/usr/src/paperless/media
+ #     - ./export:/usr/src/paperless/export
+ #     - ./consume:/usr/src/paperless/consume

@@ -1,0 +1,30 @@
+[general]
+disallow=all
+allow=ulaw
+allow=gsm
+port = 5060
+bindaddr = 0.0.0.0
+context = others
+context=from-iaxport
+register => durchsagen:asdqwe123@172.18.6.10/durchsagen
+localnet=172.18.6.0/255.255.255.0
+;prematuremedia=no
+;progressinband=yes
+
+
+[172.18.6.10]
+type = peer
+host = 172.18.6.10
+outboundproxy=172.18.6.10
+port = 5060
+username = durchsagen
+fromuser = durchsagen
+fromdomain = 172.18.6.10
+secret = asdqwe123
+dtmfmode = rfc2833
+insecure = port,invite
+canreinvite = no
+registertimeout = 600
+disallow=all
+allow=alaw
+allow=ulaw
