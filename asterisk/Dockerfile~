@@ -8,7 +8,7 @@ RUN apt-get install asterisk php php-mysql -y
 COPY run.sh /root/run.sh
 RUN chmod +x /root/run.sh
 
-copy script/* /usr/share/asterisk/agi-bin/
+copy record.php /usr/share/asterisk/agi-bin/record.php
 RUN chmod +x /usr/share/asterisk/agi-bin/record.php
 
 CMD ["/root/run.sh"]
