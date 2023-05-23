@@ -43,12 +43,11 @@ exten => s,2,Hangup()" > /etc/asterisk/extensions.conf
 
 
 echo "<?php
-\$ms = new mysqli('database',\"${MYSQL_USER}\",\"${MYSQL_PASSWORD}\",\"${MYSQL_DATABASE}\");
+define (\"MYSQL_USER\",\"${MYSQL_USER}\");
+define (\"MYSQL_PASSWORD\",\"${MYSQL_PASSWORD}\");
+define (\"MYSQL_DATABASE\",\"${MYSQL_DATABASE}\");
+define (\"VOICE_ID\",\"${VOICE_ID}\");
 
-if (\$ms -> connect_errno) {
-  echo \"Failed to connect to MySQL: \" . \$ms -> connect_error;
-  exit();
-}
-" >/usr/share/asterisk/agi-bin/mysql.php
+" >/usr/share/asterisk/agi-bin/config.php
 
-asterisk -cv
+asterisk -cvv

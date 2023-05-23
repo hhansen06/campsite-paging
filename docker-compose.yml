@@ -35,7 +35,8 @@ services:
       - 5060:5060                         # SIP TCP port
       - 5061:5061                         # SIP TLS port
       - 10000-10099:10000-10099/udp        # RTP ports
-       
+     volumes:
+      - ./durchsagen:/durchsagen
      build: 
        context: asterisk
        dockerfile: Dockerfile
@@ -49,6 +50,7 @@ services:
        - MYSQL_USER=durchsagen
        - MYSQL_PASSWORD=durchsagen
        - MYSQL_DATABASE=durchsagen
+       - VOICE_ID=73
      
 
 #  webserver:
