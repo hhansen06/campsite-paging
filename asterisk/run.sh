@@ -12,6 +12,7 @@ port = 5060
 bindaddr = 0.0.0.0
 context = others
 context=default
+externip=${SERVER_IP}
 register => ${SIP_REGISTER}
 localnet=${SIP_LOCALNET}
 ;prematuremedia=no
@@ -40,5 +41,14 @@ echo "[default]
 exten => s,1,AGI(record.php)
 exten => s,2,Hangup()" > /etc/asterisk/extensions.conf
 
+
+echo "<?php
+\$ms = new mysqli('database',\"${MYSQL_USER}\",\"${MYSQL_PASSWORD}\",\"${MYSQL_DATABASE}\");
+
+if (\$ms -> connect_errno) {
+  echo \"Failed to connect to MySQL: \" . \$ms -> connect_error;
+  exit();
+}
+" >/usr/share/asterisk/agi-bin/mysql.php
 
 asterisk -cv

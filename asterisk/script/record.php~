@@ -1,22 +1,24 @@
 #!/usr/bin/php -q
     <?php
+    
+      function gen_speech_by_text($text)
+      {
+      return md5($text);
+      }
+
+
       ini_set("display_errors","0");
-      include("/var/www/functions/mysql.php");
-      include("/var/www/functions/settings.php");
-      include("/var/www/functions/googletexttospeech.php");
       set_time_limit(0);
       require('phpagi.php');
-
+      require("mysql.php");
       $agi = new AGI();
       $agi->answer();
       $ani = $agi->request;
       $agi->noop("Neuer eingehender Anruf!");
-      $data  = mysql_fetch_array(mysql_query("SELECT * FROM durchsagen_quellen WHERE rufnummer='".$ani["agi_callerid"]."'"));
-
+      $data  = $ms->query("SELECT * FROM durchsagen_quellen WHERE rufnummer='".$ani["agi_callerid"]."'")->fetch_array();
         if(!isset($data["quelle_id"]))
         {
-            mysql_query("INSERT into durchsagen_quellen (rufnummer) VALUES ('".$ani["agi_callerid"]."')");
-            $quellid = mysql_insert_id();
+            $quellid = $ms->query("INSERT into durchsagen_quellen (rufnummer) VALUES ('".$ani["agi_callerid"]."')")->insert_id;
             $allowed = false;
         }
         else

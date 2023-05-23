@@ -1689,16 +1689,6 @@ class AGI
     */
     function which($cmd, $checkpath=NULL)
     {
-        global $_ENV;
-        $chpath = is_null($checkpath) ? $_ENV['PATH'] : $checkpath;
-
-        foreach(explode(':', $chpath) as $path)
-          if(is_executable("$path/$cmd"))
-            return "$path/$cmd";
-
-        if(is_null($checkpath))
-          return $this->which($cmd, '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:'.
-                                            '/usr/X11R6/bin:/usr/local/apache/bin:/usr/local/mysql/bin');
         return false;
     }
 

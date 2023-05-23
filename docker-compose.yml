@@ -1,5 +1,11 @@
 version: "3.4"
+
 services:
+  gametts:
+     image: henrikhansen/gametts:latest
+     ports:
+      - 5000
+     
   database-bootstrap:
      build: 
        context: database-bootstrap
@@ -23,16 +29,26 @@ services:
        
   asterisk:
      image: hhansen06/campsite-asterisk
-     network_mode: host
+#     network_mode: host
+     ports:
+      - 5060:5060/udp                     # SIP UDP port
+      - 5060:5060                         # SIP TCP port
+      - 5061:5061                         # SIP TLS port
+      - 10000-10099:10000-10099/udp        # RTP ports
+       
      build: 
        context: asterisk
        dockerfile: Dockerfile
      environment: 
+       - SERVER_IP=172.18.12.7
        - SIP_REGISTER=zeltlagerkram:asdqwe123@172.18.5.2
        - SIP_SERVER=172.18.5.2
        - SIP_USER=zeltlagerkram
        - SIP_PASSWD=asdqwe123 
        - SIP_LOCALNET=172.18.12.0/255.255.255.0
+       - MYSQL_USER=durchsagen
+       - MYSQL_PASSWORD=durchsagen
+       - MYSQL_DATABASE=durchsagen
      
 
 #  webserver:
