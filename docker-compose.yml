@@ -32,8 +32,6 @@ services:
       - 7890:7890/udp
     volumes:
         - "/dev/shm:/dev/shm:rw"
-    # depends_on:
-    #   - jack
     privileged: true
     shm_size: 256m
     cap_add:
@@ -70,6 +68,7 @@ services:
      environment:
       - SQLFILE=dump.sql
       - MYSQL_ROOT_PASSWORD=changeme
+      - /tmp/mysql:/var/lib/mysql
      depends_on:
      - database
 
@@ -95,6 +94,8 @@ services:
       - 10000-10099:10000-10099/udp        # RTP ports
     volumes:
       - ./durchsagen:/durchsagen
+      - ./functions.php:/usr/share/asterisk/agi-bin/functions.php:ro
+
     build: 
       context: asterisk
       dockerfile: Dockerfile
@@ -119,3 +120,20 @@ services:
       - ICECAST_ADMIN_USER=admin
       - ICECAST_ADMIN_PASSWORD=changeme
       - TZ=Europe/Berlin
+  
+  player:
+    build: 
+      context: player
+    environment:
+      - MYSQL_USER=durchsagen
+      - MYSQL_PASSWORD=durchsagen
+      - MYSQL_DATABASE=durchsagen
+    volumes:
+        - "/dev/shm:/dev/shm:rw"
+        - ./durchsagen:/durchsagen
+        - ./functions.php:/root/functions.php:ro
+        - ./jingle.mp3:/root/jingle.mp3
+    privileged: true
+    depends_on:
+      - mixer
+      - autojack
