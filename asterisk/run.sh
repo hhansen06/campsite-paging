@@ -50,4 +50,4 @@ define (\"VOICE_ID\",\"${VOICE_ID}\");
 
 " >/usr/share/asterisk/agi-bin/config.php
 
-asterisk -cvv
+asterisk -fv
