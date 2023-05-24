@@ -50,6 +50,7 @@ services:
         - "/dev/shm:/dev/shm:rw"
     depends_on:
       - mixer
+    shm_size: 256m
 
   radio:
     build: 
@@ -109,23 +110,12 @@ services:
       - MYSQL_DATABASE=durchsagen
       - VOICE_ID=73
 
-  # icecast:
-  #   image: deepcomp/icecast2
-  #   ports:
-  #     - "8000:8000"
-  #   environment:
-  #     - ICECAST_SOURCE_PASSWORD=hackme
-  #     - ICECAST_ADMIN_USER=admin
-  #     - ICECAST_ADMIN_PASSWORD=changeme
-  #     - TZ=Europe/Berlin
-  
-  # streamer:
-  #   build: 
-  #     context: streamer
-  #   volumes:
-  #       - "/dev/shm:/dev/shm:rw"
-  #   privileged: true
-  #   depends_on:
-  #     - jack
-  #     - mixer
-  #     - autojack
+  icecast:
+    image: deepcomp/icecast2
+    ports:
+      - "8000:8000"
+    environment:
+      - ICECAST_SOURCE_PASSWORD=hackme
+      - ICECAST_ADMIN_USER=admin
+      - ICECAST_ADMIN_PASSWORD=changeme
+      - TZ=Europe/Berlin

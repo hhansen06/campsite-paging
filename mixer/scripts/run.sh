@@ -10,6 +10,6 @@ rm /tmp/.X1-lock 2> /dev/null &
 export DISPLAY=:1
 
 sleep 5
-
+rm -rf /dev/shm/*
 /usr/bin/supervisord
 wait
