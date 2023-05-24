@@ -3,7 +3,7 @@ version: "3.4"
 services:
   gametts:
     image: henrikhansen/gametts:latest
-    expose:
+    ports:
      - 5000
     restart: always
 
