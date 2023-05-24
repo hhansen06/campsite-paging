@@ -5,6 +5,12 @@ Legacy dockerstack for a paging system, original designed for a youth camp
 - fix auth for vnc & novnc in container mixer
 
 ## Info
+
+- Access to mixer: vnc port 5900 or http://serverip:5901
+- Access to gametts http://serverip:5000
+- access to streaming http://serverip:8000
+
+
 ### Save autojack settings
 1. docker compose stop autojack
 2. docker compose run autojack aj-snapshot /root/aj-settings.conf       
