@@ -1,6 +1,9 @@
 # campsite-paging
 Legacy dockerstack for a paging system, original designed for a youth camp
 
+This stack will only work with a Tascam US-16x08. if you want to give an other audio interface a try, look into mixer-> supervisord.conf
+
+
 #ToDo:
 - fix auth for vnc & novnc in container mixer
 
